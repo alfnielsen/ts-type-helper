@@ -12,7 +12,7 @@
  *   }
  * }
  * ```
- * @see Also see {@link keyOf} and {@link keyOfCast}
+ * @see Also see {@link asKeyOf} and {@link keyOf}
  * @param k
  * @param x
  * @returns
@@ -36,12 +36,12 @@ export function isKeyOf<T extends object>(k: PropertyKey, x: T): k is keyof T {
  *   console.log(obj[k2]) // ✓
  * }
  * ```
- * @see Also see {@link isKeyOf} and {@link keyOfCast}
+ * @see Also see {@link isKeyOf} and {@link keyOf}
  * @param x
  * @param k
  * @returns
  */
-export function keyOf<T extends object>(k: PropertyKey, x?: T): keyof T {
+export function asKeyOf<T extends object>(k: PropertyKey, x?: T): keyof T {
   return k as keyof T
 }
 
@@ -61,11 +61,19 @@ export function keyOf<T extends object>(k: PropertyKey, x?: T): keyof T {
  *   // If you know this is not undefined, use 'castAs' instead
  * }
  * ```
- * @see Also see {@link keyOf} and {@link keyOfCast}
+ * @see Also see {@link asKeyOf} and {@link keyOf}
  * @param x
  * @param k
  * @returns
  */
-export function keyOfCast<T extends object>(k: PropertyKey, x: T): keyof T | undefined {
+export function keyOf<T extends object>(k: PropertyKey, x: T): keyof T | undefined {
   if (k in x) return k as keyof T
 }
+
+export const Keys = {
+  isKeyOf,
+  asKeyOf,
+  keyOf,
+}
+
+export default Keys

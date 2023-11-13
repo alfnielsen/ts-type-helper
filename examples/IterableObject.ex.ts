@@ -1,35 +1,35 @@
-import iterate from "../src/iterate"
+import { Obj } from "../src"
 
 // base objects
-const obj = { a: 1, b: 2 } as const
+const item = { a: 1, b: 2 } as const
 
-for (const [key, value] of Object.entries(obj)) {
+for (const [key, value] of Object.entries(item)) {
   console.log(key) // => string (But we want 'a' | 'b')
   console.log(value) // => 1, 2 ( ✓ )
-  console.log(obj[key]) // ✗ (tsc complains)
+  console.log(item[key]) // ✗
 }
-for (const key of Object.keys(obj)) {
+for (const key of Object.keys(item)) {
   console.log(key) // => string (But we want 'a' | 'b')
-  console.log(obj[key]) // ✗ (tsc complains)
+  console.log(item[key]) // ✗
 }
 
-for (const value of Object.values(obj)) {
+for (const value of Object.values(item)) {
   console.log(value) // => 1, 2 ( ✓ )
 }
 
-// The Iterate class fixes this:
+// ------------------------- The "obj" (iterator) method -------------------------
 
-for (const key of iterate.keys(obj)) {
+for (const key of Obj(item).keys()) {
   console.log(key) // => 'a' | 'b'
-  console.log(obj[key]) // ✓ (tsc accepts)
+  console.log(item[key]) // ✓
 }
 
-for (const [key, value] of iterate.entries(obj)) {
+for (const [key, value] of Obj(item).entries()) {
   console.log(key) // => 'a', 'b'
   console.log(value) // => 1, 2
-  console.log(obj[key]) // ✓
+  console.log(item[key]) // ✓
 }
 
-for (const value of iterate.values(obj)) {
+for (const value of Obj(item).values()) {
   console.log(value) // => 1, 2 ( ✓ )
 }

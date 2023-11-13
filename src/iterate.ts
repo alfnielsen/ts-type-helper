@@ -1,4 +1,4 @@
-import { keyOf } from "./keyOf"
+import Keys from "./Keys"
 
 export type ObjectValueIteratorValueGenerator<T extends object, R> = (
   obj: T,
@@ -56,7 +56,7 @@ export class ObjectValueIterator<T extends object, TReturnValue> implements Iter
       this.done = true
       return { done: true, value: undefined }
     }
-    const key = keyOf(keys[this.index], this.obj)
+    const key = Keys.asKeyOf(keys[this.index], this.obj)
     const value = this.obj[key]
     const response = this.valueGenerator(this.obj, key, value, this.index)
     this.index++
@@ -110,7 +110,7 @@ export function reduce<R, T extends object>(
   init: R,
   reducer: (acc: R, key: keyof T, value: T[keyof T]) => R
 ): R {
-  for (const [key, value] of iterate.entries(obj)) {
+  for (const [key, value] of entries(obj)) {
     init = reducer(init, key, value)
   }
   return init
@@ -118,7 +118,7 @@ export function reduce<R, T extends object>(
 
 export function reduceObj<R, T extends object>(obj: T, reducer: (acc: R, key: keyof T, value: T[keyof T]) => R): R {
   let init = {} as R
-  for (const [key, value] of iterate.entries(obj)) {
+  for (const [key, value] of entries(obj)) {
     init = reducer(init, key, value)
   }
   return init
@@ -131,21 +131,13 @@ export function map<T extends object, R>(obj: T, mapper: (key: keyof T, value: T
   })
 }
 
-export const iterate = {
+export const Iterate = {
   entries,
   keys,
   values,
+  reduce,
+  reduceObj,
+  map,
 }
 
-export function obj<T extends object>(obj: T) {
-  return {
-    entries: () => entries(obj),
-    keys: () => keys(obj),
-    values: () => values(obj),
-    reduce: <R>(init: R, reducer: (acc: R, key: keyof T, value: T[keyof T]) => R) => reduce(obj, init, reducer),
-    reduceObj: <R>(reducer: (acc: R, key: keyof T, value: T[keyof T]) => R) => reduceObj(obj, reducer),
-    map: <R>(mapper: (key: keyof T, value: T[keyof T]) => R) => map(obj, mapper),
-  }
-}
-
-export default obj
+export default Iterate

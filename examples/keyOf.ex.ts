@@ -1,28 +1,26 @@
-import { iterate } from "../src/iterate"
-import { keyOf, keyOfCast, isKeyOf } from "../src/keyOf"
+import { Iterate, Keys } from "../src"
 
 // base objects
 const obj = { a: 1, b: 2 } as const
 
 for (const key of Object.keys(obj)) {
   console.log(obj[key]) // ✗
-  if (isKeyOf(key, obj)) {
+  if (Keys.isKeyOf(key, obj)) {
     console.log(obj[key]) // ✓
   }
 }
 // isKeyOf
 for (const key of Object.keys(obj)) {
   console.log(obj[key]) // ✗
-  const k = keyOf(key, obj)
+  const k = Keys.asKeyOf(key, obj)
   console.log(obj[k]) // ✓
-  const k2 = keyOf<typeof obj>(key) // generic type inference
+  const k2 = Keys.asKeyOf<typeof obj>(key) // generic type inference
   console.log(obj[k2]) // ✓
 }
 
-keyOfCast
 for (const key of Object.keys(obj)) {
   console.log(obj[key]) // ✗
-  const k = keyOfCast(key, obj)
+  const k = Keys.keyOf(key, obj)
   if (k) {
     console.log(obj[k]) // ✓
   }
