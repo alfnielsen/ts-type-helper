@@ -1,5 +1,6 @@
 export * from "./Iterate"
 export * from "./Clone"
+export * from "./Assign"
 export * from "./Keys"
 export * from "./Obj"
 export * from "./ObjectTypes"

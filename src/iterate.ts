@@ -29,7 +29,7 @@ export type ObjectValueIteratorValueGenerator<T extends object, R> = (
  *   }
  * }
  *
- * @see Also see {@link ObjectEntiresIterator}, {@link ObjectKeysIterator} and {@link ObjectValuesIterator}
+ * @see Also see {@link ObjectEntriesIterator}, {@link ObjectKeysIterator} and {@link ObjectValuesIterator}
  */
 
 export class ObjectValueIterator<T extends object, TReturnValue> implements Iterable<TReturnValue> {
@@ -71,7 +71,7 @@ export class ObjectValueIterator<T extends object, TReturnValue> implements Iter
 /**
  * `ObjectEntiresIterator` is an iterator for objects (Stronly typed)
  */
-export class ObjectEntiresIterator<T extends object> extends ObjectValueIterator<T, [keyof T, T[keyof T]]> {
+export class ObjectEntriesIterator<T extends object> extends ObjectValueIterator<T, [keyof T, T[keyof T]]> {
   constructor(obj: T) {
     super(obj, (obj, key, value) => [key, value])
   }
@@ -96,7 +96,7 @@ export class ObjectValuesIterator<T extends object> extends ObjectValueIterator<
 }
 
 export function entries<T extends object>(obj: T) {
-  return new ObjectEntiresIterator(obj)
+  return new ObjectEntriesIterator(obj)
 }
 export function keys<T extends object>(obj: T) {
   return new ObjectKeysIterator(obj)
