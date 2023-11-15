@@ -1,4 +1,11 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "dist", "examples"] // dont include "examples" in build
+  "compilerOptions": {
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "tsBuildInfoFile": null
+  },
+  "exclude": ["node_modules", "dist", "examples", "tests"] // dont include "examples" in build
 }

@@ -1,4 +1,3 @@
-import Obj from "./Obj"
 import { AsWriteable, Writeable } from "./ObjectTypes"
 
 export function shallowClone<T extends object>(obj: T, defaults?: Partial<T>, overrides?: Partial<T>): T {

@@ -1,3 +1,4 @@
+export type ObjectLike<T> = { [k: string]: T[keyof T] }
 /**
  * Remove "readonly" from all properties
  */

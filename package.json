@@ -1,11 +1,13 @@
 {
   "name": "ts-type-helper",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Helpers to avoid type-gymnastics when working with typescript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "bun run build:source && bun run build:declaration",
+    "build:source": "bun build ./src/index.ts --outdir dist --target browser --splitting --sourcemap",
+    "build:declaration": "tsc --project tsconfig.build.json",
     "publish": "npm run build && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,6 +32,7 @@
   },
   "homepage": "https://github.com/alfnielsen/ts-type-helper#readme",
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "bun-types": "latest"
   }
 }

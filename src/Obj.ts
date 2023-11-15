@@ -1,14 +1,18 @@
-import { entries, keys, map, reduce, reduceObj, values } from "./Iterate"
+import { IteratorStepOptions, entries, keys, map, reduce, reduceObj, values } from "./Iterate"
 import Clone from "./Clone"
 import Keys from "./Keys"
 import Assign from "./Assign"
+import { ObjectLike } from "./ObjectTypes"
 
-export function Obj<T extends object>(obj: T) {
+/**
+ * `Obj` is a utility class for working with objects
+ */
+export function Obj<T extends ObjectLike<T>>(obj: T) {
   return {
     // iterate
-    entries: () => entries(obj),
-    keys: () => keys(obj),
-    values: () => values(obj),
+    entries: (stepOptions?: IteratorStepOptions) => entries(obj, stepOptions),
+    keys: (stepOptions?: IteratorStepOptions) => keys(obj, stepOptions),
+    values: (stepOptions?: IteratorStepOptions) => values(obj, stepOptions),
     reduce: <R>(init: R, reducer: (acc: R, key: keyof T, value: T[keyof T]) => R) => reduce(obj, init, reducer),
     reduceObj: <R>(reducer: (acc: R, key: keyof T, value: T[keyof T]) => R) => reduceObj(obj, reducer),
     map: <R>(mapper: (k: keyof T, value: T[keyof T]) => R) => map(obj, mapper),
